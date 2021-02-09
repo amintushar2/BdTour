@@ -7,8 +7,8 @@ public class UserBookedDetailsModel {
     public UserBookedDetailsModel() {
     }
 
-    public UserBookedDetailsModel(String startDates, String lastDate, String adultCountS, String childCounts, String dif, String hotelNames, String hotelDestrict, String rentTT, String totalR, String roomSelections, String totalRoom,
-                                  String userid, String mobilePhoneEdts, String firstNameEdts, String lastNameEdts, String emailEdts, String dobEdts, String adressEdts, String generateToken) {
+    public UserBookedDetailsModel(String startDates, String lastDate, String adultCountS, String childCounts, String dif, String hotelNames, String hotelDestrict, String rentTT, String totalR, String roomSelections, String totalRoom, String userid,
+                                  String mobilePhoneEdts, String firstNameEdts, String lastNameEdts, String emailEdts, String dobEdts, String adressEdts, String generateToken) {
         this.startDates = startDates;
         this.lastDate = lastDate;
         this.adultCountS = adultCountS;
@@ -29,6 +29,7 @@ public class UserBookedDetailsModel {
         this.adressEdts = adressEdts;
         this.generateToken = generateToken;
     }
+
 
     public String getStartDates() {
         return startDates;

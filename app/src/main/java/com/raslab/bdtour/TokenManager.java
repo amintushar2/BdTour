@@ -43,7 +43,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class TokenManager extends AppCompatActivity {
-    Button submitTOkensButton;
+    Button submitTOkensButton, airdetailsBtn, busDetailsBtn;
     TextInputLayout mobileOtpLayout;
     TextInputEditText mobileTokenEditText;
     TextView userDescriptionDetails,phoneNoTV,tokeNtv;
@@ -71,7 +71,7 @@ public class TokenManager extends AppCompatActivity {
     String hotelNames,nonACsinglechk,nonAcDoubleChk,nonACpremiumchk,aCsinglechk,aCDoubleChk,aCpremiumchk,gmapLoc,descriptionSnap;
     String userid,mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken,rentTT,totalR;
     String startDates,lastDate,adultCountS, childCounts,dif,hotelDestrict;
-    String roomSelections,id,totalRoom;
+    String roomSelections,id,totalRoom,destinationSTr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class TokenManager extends AppCompatActivity {
         Intent intent = getIntent();
         phontST = intent.getStringExtra("phoneno");
         textmessage = "ThankYou For Using BDtour";
-        username = "amintushar1222";
+        username = "amintushar12";
         hash_token = "e0cdc7b3b60abe00a712732e00d52a7e";
         encoded_message= URLEncoder.encode(textmessage);
         phoneNoTV=findViewById(R.id.phoneNoTV);
@@ -96,11 +96,7 @@ public class TokenManager extends AppCompatActivity {
         preferences = getSharedPreferences("MyFref", 0);
         id=preferences.getString("id","");
 
-
         //userDatabaseRef=hotelUserDatabaseRef.child(firebaseUser.getUid());
-
-
-
 
         hotelNames=preferences.getString("HotelName","");
         hotelDestrict=preferences.getString("HotelName","");
@@ -136,7 +132,6 @@ public class TokenManager extends AppCompatActivity {
 
         phoneNoTV.setText(mobilePhoneEdts);
 
-        Toast.makeText(this, ""+mobilePhoneEdts, Toast.LENGTH_SHORT).show();
         roomSelections=nonACsinglechk+nonAcDoubleChk+nonACpremiumchk+aCsinglechk+aCDoubleChk+aCpremiumchk;
         submitTOkensButton= findViewById(R.id.finishbtn);
         mobileTokenEditText=findViewById(R.id.mobileOtpEdt);
@@ -148,8 +143,9 @@ public class TokenManager extends AppCompatActivity {
                 " Dear: " +firstNameEdts+" "+lastNameEdts+"\n"+
                 " You Choose: " +hotelNames+"\n"+
                 "\n"+roomSelections+
-                "\n"+rentTT+
-        "Book For 2 Days \n"+"Total Price"+totalR+
+                "\n"+"Total Room : "+
+                "\n"+"Total Cost "+rentTT+" \n"+
+                "Book For 2 Days \n"+ "Total Price"+totalR+
         "\n"+
         "Thank You For Choosing Bdtour";
         userDescriptionDetails.setText(description);
@@ -171,6 +167,26 @@ public class TokenManager extends AppCompatActivity {
 
                 verifyVerificationCode(otpVerify);
 
+            }
+        });
+
+        busDetailsBtn=findViewById(R.id.busDetails);
+        busDetailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(TokenManager.this,BusDetailsActivity.class);
+                intent1.putExtra("dest",destinationSTr);
+                startActivity(intent1);
+
+            }
+        });
+        airdetailsBtn= findViewById(R.id.airDetails);
+        airdetailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(TokenManager.this,AirDetailsActivity.class);
+                intent1.putExtra("dest",destinationSTr);
+                startActivity(intent1);
             }
         });
 
@@ -215,8 +231,6 @@ public class TokenManager extends AppCompatActivity {
     }
 
     private void smsSenderApi() {
-
-
         URLConnection myURLConnection=null;
         URL myURL=null;
         BufferedReader reader=null;
@@ -269,7 +283,7 @@ public class TokenManager extends AppCompatActivity {
                             submitTOkensButton.setVisibility(View.GONE);
                             sendUserData();
                             smsSenderApi();
-                            sendBookedHotelData();
+                            //sendBookedHotelData();
                         } else {
                             //verification unsuccessful.. display an error message
                             String message = "Somthing is wrong, we will fix it soon...";
@@ -289,6 +303,7 @@ public class TokenManager extends AppCompatActivity {
                         }
                     }
                 });
+
     }
     private void sendUserData() {
 
@@ -298,11 +313,13 @@ public class TokenManager extends AppCompatActivity {
         rootDatabaseRef= FirebaseDatabase.getInstance().getReference();
         hotelDatabaseRef=rootDatabaseRef.child("Hotels");
         hotelUserDatabaseRef=hotelDatabaseRef.child("User");
-        userDatabaseRef=hotelUserDatabaseRef.child(id);
-        userid = userDatabaseRef.push().getKey();
-       userBookDatabaseRef=userDatabaseRef.child(userid);
-        UserModel userModel = new UserModel(userid,mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken);
-      userBookDatabaseRef  .setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+//        userDatabaseRef=hotelUserDatabaseRef.child(id);
+
+       userBookDatabaseRef=hotelUserDatabaseRef.child(firebaseAuth.getCurrentUser().getUid());
+        userid = userBookDatabaseRef.push().getKey();
+        UserModel userModel = new UserModel(userid, mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken,startDates,lastDate,adultCountS,
+                childCounts,dif,hotelNames,hotelDestrict,rentTT,totalR,roomSelections,totalRoom);
+      userBookDatabaseRef.setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 tokeNtv.setVisibility(View.VISIBLE);
@@ -321,19 +338,18 @@ public class TokenManager extends AppCompatActivity {
     }
 
 
-private  void sendBookedHotelData(){
-    HotelBookedModel hotelBookedModel = new HotelBookedModel(startDates,lastDate,adultCountS, childCounts,dif,hotelNames,hotelDestrict,rentTT,totalR,roomSelections,totalRoom);
-        userBookDatabaseRef.child("BookedHotel").setValue(hotelBookedModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(TokenManager.this, "Thanks For Booking", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+//private  void sendBookedHotelData(){
+//    HotelBookedModel hotelBookedModel = new HotelBookedModel(startDates,lastDate,adultCountS, childCounts,dif,hotelNames,hotelDestrict,rentTT,totalR,roomSelections,totalRoom);
+//        userBookDatabaseRef.child(userid).setValue(hotelBookedModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                Toast.makeText(TokenManager.this, "Thanks For Booking", Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//            }
+//        });
 
-            }
-        });
-
-}
 }

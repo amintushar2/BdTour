@@ -14,18 +14,17 @@
         android:rotationX="0"
         tools:context=".MainActivity">
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="63dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="81dp"
+            android:layout_marginBottom="34dp"
             android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -40,47 +39,61 @@
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="395dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:text="Total Days"
-            android:textSize="20sp"
+            android:layout_marginBottom="40dp"
+            android:rotationX="0"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/showDatepicker"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/showDatepicker"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="8dp"
-            android:text="Select Your Days"
-            android:textSize="15sp"
-            app:cornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="1dp"
+                android:gravity="center"
+                android:text="Total Days \n"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/showDatepicker"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/showDatepicker"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#026c92"
+                android:text="Select Your Days"
+                android:textSize="15sp"
+                app:cornerRadius="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="194dp"
+            android:layout_marginBottom="32dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/searchHotel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
             <TextView
                 android:id="@+id/textView2"
@@ -107,10 +120,10 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/decreseBtn1"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#026c92"
                     android:text="-"
                     android:textSize="20sp" />
 
@@ -118,17 +131,18 @@
                     android:id="@+id/adultCount"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center"
+
                     android:text="0"
                     android:textSize="18sp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/incresseBTn1"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#026c92"
                     android:text="+"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -149,10 +163,10 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/decreseBtn2"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#026c92"
                     android:text="-"
                     android:textSize="20sp" />
 
@@ -160,7 +174,6 @@
                     android:id="@+id/childCount"
                     android:layout_width="20dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="center"
 
                     android:text="0"
@@ -169,10 +182,11 @@
                 <com.google.android.material.button.MaterialButton
 
                     android:id="@+id/incresseBTn2"
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
+                    android:backgroundTint="#026c92"
                     android:text="+"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -180,15 +194,19 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/searchHotel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
+            android:backgroundTint="#026c92"
             android:text="Search Hotel"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

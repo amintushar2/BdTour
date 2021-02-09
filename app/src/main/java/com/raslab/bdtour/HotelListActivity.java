@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,11 @@ public class HotelListActivity extends AppCompatActivity {
     public DatabaseReference hotelUserDatabaseRef;
     public FirebaseUser firebaseUser;
     public FirebaseAuth firebaseAuth ;
+    FirebaseDatabase mFirebaseDatabase;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
     private HotelListAdapter hotelListAdapter;
-GridLayoutManager gridLayoutManager;
+    GridLayoutManager gridLayoutManager;
     RecyclerView recyclerView;
     ProgressDialog progressDialog;
     String tv;
@@ -52,10 +56,14 @@ GridLayoutManager gridLayoutManager;
         Intent intent = getIntent();
          tv=  intent.getStringExtra("destinationLOC");
          destinationViews.setText("Your Destination  :  " +tv);
+        preferences = getSharedPreferences("MyFref",0);
+        editor =preferences.edit();
 
+        editor.putString("DestinationSS", tv);
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth= firebaseAuth.getInstance();
-        rootDatabaseRef = FirebaseDatabase.getInstance().getReference();;
+        rootDatabaseRef = mFirebaseDatabase.getReference();;
         firebaseAuth=FirebaseAuth.getInstance();
         rootDatabaseRef=FirebaseDatabase.getInstance().getReference();
         hotelDatabaseRef=rootDatabaseRef.child("Hotels");
@@ -81,6 +89,7 @@ GridLayoutManager gridLayoutManager;
                     hotelModelList.clear();
                     for (DataSnapshot snapshot1 : snapshot.getChildren()){
                         HotelModel model= snapshot1.getValue(HotelModel.class);
+                        String tv = snapshot1.getKey();
 
 //                        for (DataSnapshot snapshot2: snapshot.child(tv).child("imageUrl").getChildren()) {
 //                            String tv2= snapshot2.getKey();
@@ -91,6 +100,7 @@ GridLayoutManager gridLayoutManager;
 //                        Toast.makeText(HotelListActivity.this, ""+tv, Toast.LENGTH_SHORT).show();
 
                         hotelModelList.add(model);
+
                     }
                     hotelListAdapter.updateList(hotelModelList);
                     progressDialog.dismiss();

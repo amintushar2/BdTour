@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
         android:text="Book New Hotel"
+        android:backgroundTint="#026c92"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:text="Booked Hotel List"
+
         app:layout_constraintBottom_toTopOf="@+id/bookedHotelReciclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

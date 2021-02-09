@@ -12,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".SplashScreen" >
+        <activity android:name=".BusDetailsActivity"></activity>
+        <activity android:name=".AirDetailsActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,9 +27,7 @@
         <activity android:name=".UserRegFrom" />
         <activity android:name=".Hotel_Room_rent_Details" />
         <activity android:name=".HotelListActivity" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -34,8 +34,8 @@ public class HotelBookedListAdapter extends RecyclerView.Adapter<HotelBookedList
 
     @Override
     public void onBindViewHolder(@NonNull HotelBookedListViewHolde holder, int position) {
-holder.bookedHotelName.setText(userBookedDetailsModels.get(position).mobilePhoneEdts);
-        Toast.makeText(context, ""+userBookedDetailsModels.get(position).mobilePhoneEdts, Toast.LENGTH_SHORT).show();
+        holder.bookedHotelName.setText(userBookedDetailsModels.get(position).mobilePhoneEdts);
+        Toast.makeText(context, ""+userBookedDetailsModels.get(position).hotelNames, Toast.LENGTH_SHORT).show();
 
     }
 

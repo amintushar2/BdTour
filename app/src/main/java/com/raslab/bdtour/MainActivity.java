@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 
 import com.google.android.material.button.MaterialButton;
@@ -67,9 +68,8 @@ TextInputLayout dsInputLayout;
         autoCompleteTextView.setAdapter(adapter);
 
 
-
         Calendar calendar =Calendar.getInstance(TimeZone.getTimeZone("UTC+06"));
-     calendar.clear();
+        calendar.clear();
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setTitleText("Select Date");
@@ -187,15 +187,15 @@ adultDecreasingButton.setOnClickListener(new View.OnClickListener() {
                 }
             }
         });
-
-
-        searhHotelBTn.setOnClickListener(new View.OnClickListener() {
+      searhHotelBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 if (autoCompleteTextView.getText().toString().isEmpty()){
     dsInputLayout.setError("Enter Destination");
 } else{
-
+    String destInattion = autoCompleteTextView.getText().toString();
+    editor.putString("destt",destInattion);
+    editor.commit();
     Intent intent = new Intent(MainActivity.this,HotelListActivity.class);
     intent.putExtra("destinationLOC",autoCompleteTextView.getText().toString());
     startActivity(intent);

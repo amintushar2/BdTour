@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.raslab.bdtour.pojo.HotelModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Hotel_Room_rent_Details extends AppCompatActivity implements View.OnClickListener {
     public DatabaseReference rootDatabaseRef;
@@ -49,11 +51,10 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
         AutoCompleteTextView roomSlectionSpiner;
         String nonACsinglechk,nonAcDoubleChk,nonACpremiumchk,aCsinglechk,aCDoubleChk,aCpremiumchk,gmapLoc,descriptionSnap;
         String nonACsinglecRB,nonAcDoubleRB,nonACpremiumcRb,aCsingleRB,aCDoubleRb,aCpremiumRb,totalPRiceR;
-
         SharedPreferences.Editor editor;
         RadioButton nonAc,ac,singlechk,doubleChk,premiumchk;
         String spinnerSlectedItem;
-        Button showImageButton;
+        Button showImageButton, locationBtn;
 
     int totalPrice;
     @Override
@@ -81,10 +82,10 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
         premiumchk=findViewById(R.id.premiumRoom);
         premiumchk.setOnClickListener(this);
         showImageButton=findViewById(R.id.imageButtonPop);
-
+        locationBtn=findViewById(R.id.hotelLocationBtn);
 
         String[] arraySpinner = new String[] {
-              "0",  "1", "2", "3", "4", "5", "6", "7"
+               "1", "2", "3", "4", "5", "6", "7","8","9","10"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -110,7 +111,7 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
         aCpremiumchk=preferences.getString("acPremium","");
         gmapLoc=preferences.getString("hotelGmapLoc","");
         descriptionSnap=preferences.getString("description","");
-        Toast.makeText(this, ""+aCDoubleChk, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+gmapLoc, Toast.LENGTH_SHORT).show();
 
         roomSlectionSpiner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,7 +126,15 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
 
         hotelName.setText(hotelNAMES);
         descripitonTv.setText(descriptionSnap);
-
+        locationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+gmapLoc);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                startActivity(mapIntent);
+            }
+        });
         showImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,7 +212,7 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
         } else if (ac.isChecked()&&premiumchk.isChecked()) {
             rentTvName.setText(nonACpremiumchk);
 
-            nonACpremiumcRb = nonAc.getText().toString() + premiumchk.toString();
+            nonACpremiumcRb = nonAc.getText().toString() + premiumchk.getText().toString();
 //
         }
 

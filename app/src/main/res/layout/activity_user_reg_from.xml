@@ -25,7 +25,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/firstnameEDT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +47,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/lastNameEDT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -65,7 +69,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/emailEDT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -85,7 +91,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/adressEDT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="textPostalAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -108,7 +116,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/dobEDT"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:inputType="datetime" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -128,7 +138,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/mobileEdt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="phone" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -137,6 +149,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="17dp"
+        android:background="#01729a"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -148,7 +161,8 @@
         android:layout_marginStart="104dp"
         android:layout_marginTop="34dp"
         android:layout_marginEnd="104dp"
-        android:text="Please FillUp the From"
+        android:text="User Details"
+        android:gravity="center"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

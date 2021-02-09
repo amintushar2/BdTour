@@ -65,7 +65,8 @@ public class SplashScreen extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
            String phoneNumber= user.getPhoneNumber();
-            Intent intent = new Intent(SplashScreen.this, HomeActivity.class);
+           mAuth.signOut();
+            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
             intent.putExtra("phoneNumbe",phoneNumber);
             startActivity(intent);
             finish();

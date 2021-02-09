@@ -1,13 +1,15 @@
 package com.raslab.bdtour.pojo;
 
 public class UserModel {
+    String userid, mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken,startDates,lastDate,adultCountS, childCounts,dif,hotelNames,hotelDestrict,rentTT,totalR,roomSelections,totalRoom;
+
+
     public UserModel() {
     }
-
-    String userid, mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken;
-
-    public UserModel(String userid,String mobilePhoneEdts, String firstNameEdts, String lastNameEdts, String emailEdts, String dobEdts, String adressEdts, String generateToken) {
-        this.userid= userid;
+    public UserModel(String userid, String mobilePhoneEdts, String firstNameEdts, String lastNameEdts, String emailEdts, String dobEdts, String adressEdts,
+                     String generateToken, String startDates, String lastDate, String adultCountS, String childCounts, String dif,
+                     String hotelNames, String hotelDestrict, String rentTT, String totalR, String roomSelections, String totalRoom) {
+        this.userid = userid;
         this.mobilePhoneEdts = mobilePhoneEdts;
         this.firstNameEdts = firstNameEdts;
         this.lastNameEdts = lastNameEdts;
@@ -15,6 +17,17 @@ public class UserModel {
         this.dobEdts = dobEdts;
         this.adressEdts = adressEdts;
         this.generateToken = generateToken;
+        this.startDates = startDates;
+        this.lastDate = lastDate;
+        this.adultCountS = adultCountS;
+        this.childCounts = childCounts;
+        this.dif = dif;
+        this.hotelNames = hotelNames;
+        this.hotelDestrict = hotelDestrict;
+        this.rentTT = rentTT;
+        this.totalR = totalR;
+        this.roomSelections = roomSelections;
+        this.totalRoom = totalRoom;
     }
 
     public String getUserid() {
@@ -31,6 +44,94 @@ public class UserModel {
 
     public void setMobilePhoneEdts(String mobilePhoneEdts) {
         this.mobilePhoneEdts = mobilePhoneEdts;
+    }
+
+    public String getStartDates() {
+        return startDates;
+    }
+
+    public void setStartDates(String startDates) {
+        this.startDates = startDates;
+    }
+
+    public String getLastDate() {
+        return lastDate;
+    }
+
+    public void setLastDate(String lastDate) {
+        this.lastDate = lastDate;
+    }
+
+    public String getAdultCountS() {
+        return adultCountS;
+    }
+
+    public void setAdultCountS(String adultCountS) {
+        this.adultCountS = adultCountS;
+    }
+
+    public String getChildCounts() {
+        return childCounts;
+    }
+
+    public void setChildCounts(String childCounts) {
+        this.childCounts = childCounts;
+    }
+
+    public String getDif() {
+        return dif;
+    }
+
+    public void setDif(String dif) {
+        this.dif = dif;
+    }
+
+    public String getHotelNames() {
+        return hotelNames;
+    }
+
+    public void setHotelNames(String hotelNames) {
+        this.hotelNames = hotelNames;
+    }
+
+    public String getHotelDestrict() {
+        return hotelDestrict;
+    }
+
+    public void setHotelDestrict(String hotelDestrict) {
+        this.hotelDestrict = hotelDestrict;
+    }
+
+    public String getRentTT() {
+        return rentTT;
+    }
+
+    public void setRentTT(String rentTT) {
+        this.rentTT = rentTT;
+    }
+
+    public String getTotalR() {
+        return totalR;
+    }
+
+    public void setTotalR(String totalR) {
+        this.totalR = totalR;
+    }
+
+    public String getRoomSelections() {
+        return roomSelections;
+    }
+
+    public void setRoomSelections(String roomSelections) {
+        this.roomSelections = roomSelections;
+    }
+
+    public String getTotalRoom() {
+        return totalRoom;
+    }
+
+    public void setTotalRoom(String totalRoom) {
+        this.totalRoom = totalRoom;
     }
 
     public String getFirstNameEdts() {

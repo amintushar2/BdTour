@@ -22,7 +22,7 @@ public class UserRegFrom extends AppCompatActivity {
     String mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken,nonACsinglecRB,nonAcDoubleRB,nonACpremiumcRb,aCsingleRB,aCDoubleRb,aCpremiumRb;
     TextInputLayout dobLayout;
     TextInputLayout textInputLayout;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern ;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
     String hotelNAMES,nonACsinglechk,nonAcDoubleChk,nonACpremiumchk,aCsinglechk,aCDoubleChk,aCpremiumchk,gmapLoc,descriptionSnap;
@@ -53,7 +53,6 @@ public class UserRegFrom extends AppCompatActivity {
         userModel =new UserModel();
 
         preferences = getSharedPreferences("MyFref",0);
-
         hotelNAMES=preferences.getString("HotelName","");
         nonACsinglechk=preferences.getString("nonAcSingleRoom","");
         nonAcDoubleChk=preferences.getString("nonAcDoubleRoom","");
@@ -92,8 +91,7 @@ public class UserRegFrom extends AppCompatActivity {
                   dobEdt.setText(materialDatePicker.getHeaderText());
             }
         });
-
-
+        
         submitUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,38 +118,6 @@ public class UserRegFrom extends AppCompatActivity {
     }
 
 
-
-
-
-//        String token = "";
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//            String easy = RandomString.digits ;
-//            RandomString tickets = new RandomString(6, new SecureRandom(), easy);
-//            token = new StringBuilder(String.valueOf(tickets)).reverse().toString().substring(0, 7);
-//            Log.e("TOKEN", token);
-//            Toast.makeText(this, ""+token, Toast.LENGTH_SHORT).show();
-//        }
-
-
-//    private void sendUserData() {
-//
-//
-//        UserModel userModel = new UserModel(mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken);
-//        userDatabaseRef.setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                Intent intent = new Intent(UserRegFrom.this,TokenManager.class);
-//                intent.putExtra("phoneno",mobilePhoneEdt.getText().toString());
-//                startActivity(intent);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(UserRegFrom.this, "faild to Update", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//    }
 
     private void validation() {
         if (firstNameEdt.getText().toString().isEmpty()) {
