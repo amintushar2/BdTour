@@ -32,7 +32,7 @@ public class HotelListActivity extends AppCompatActivity {
     public DatabaseReference rootDatabaseRef;
     public DatabaseReference hotelDatabaseRef;
     public DatabaseReference hotelUserDatabaseRef;
-    public FirebaseUser firebaseUser;
+
     public FirebaseAuth firebaseAuth ;
     FirebaseDatabase mFirebaseDatabase;
     SharedPreferences preferences;

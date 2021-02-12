@@ -51,7 +51,7 @@ public class HotelImagesAdapter extends RecyclerView.Adapter<HotelImagesAdapter.
 
     @Override
     public int getItemCount() {
-        Toast.makeText(context, ""+imageLinkList.size(), Toast.LENGTH_SHORT).show();
+
         return imageLinkList.size();
 
     }

@@ -183,4 +183,5 @@ public class HotelModel {
 
     public HotelModel() {
     }
+
 }

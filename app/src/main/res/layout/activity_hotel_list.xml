@@ -16,7 +16,6 @@
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="Destination"
-
         android:textColor="#026c92"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/hotelListRecyclerView"

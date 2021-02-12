@@ -111,7 +111,7 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
         aCpremiumchk=preferences.getString("acPremium","");
         gmapLoc=preferences.getString("hotelGmapLoc","");
         descriptionSnap=preferences.getString("description","");
-        Toast.makeText(this, ""+gmapLoc, Toast.LENGTH_SHORT).show();
+
 
         roomSlectionSpiner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -173,7 +173,7 @@ public class Hotel_Room_rent_Details extends AppCompatActivity implements View.O
             editor.putString("nonDouble",nonAcDoubleRB);
             editor.putString("nonPremium",nonACpremiumcRb);
             editor.putString("RentPerNight",rentTvName.getText().toString());
-            Toast.makeText(Hotel_Room_rent_Details.this, ""+nonACsinglecRB+nonAcDoubleRB+nonACpremiumcRb+aCsingleRB+aCDoubleRb+aCpremiumRb, Toast.LENGTH_SHORT).show();
+
 
             editor.commit();
             Intent intent = new Intent(Hotel_Room_rent_Details.this,UserRegFrom.class);

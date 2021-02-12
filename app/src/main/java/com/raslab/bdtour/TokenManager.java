@@ -2,6 +2,7 @@ package com.raslab.bdtour;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,6 +58,7 @@ public class TokenManager extends AppCompatActivity {
     private String mVerificationId;
     String description;
     SharedPreferences preferences;
+    TextView resendCodes;
 
     public DatabaseReference rootDatabaseRef;
     public DatabaseReference hotelDatabaseRef;
@@ -65,13 +67,14 @@ public class TokenManager extends AppCompatActivity {
     public DatabaseReference userBookDatabaseRef;
     public FirebaseUser firebaseUser;
     public FirebaseAuth firebaseAuth ;
-    UserModel userModel;
 
-
+    PhoneAuthProvider.ForceResendingToken resendToken;
+    ConstraintLayout constraintLayout;
     String hotelNames,nonACsinglechk,nonAcDoubleChk,nonACpremiumchk,aCsinglechk,aCDoubleChk,aCpremiumchk,gmapLoc,descriptionSnap;
     String userid,mobilePhoneEdts,firstNameEdts,lastNameEdts,emailEdts,dobEdts,adressEdts,generateToken,rentTT,totalR;
     String startDates,lastDate,adultCountS, childCounts,dif,hotelDestrict;
     String roomSelections,id,totalRoom,destinationSTr;
+    String mobileNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class TokenManager extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         setContentView(R.layout.activity_token_manager);
+        resendCodes =findViewById(R.id.resendCode);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -130,7 +134,7 @@ public class TokenManager extends AppCompatActivity {
         generateToken=preferences.getString("generateToken","");
 
 
-        phoneNoTV.setText(mobilePhoneEdts);
+        phoneNoTV.setText("Your Mobile Numbe : "+mobilePhoneEdts);
 
         roomSelections=nonACsinglechk+nonAcDoubleChk+nonACpremiumchk+aCsinglechk+aCDoubleChk+aCpremiumchk;
         submitTOkensButton= findViewById(R.id.finishbtn);
@@ -138,7 +142,6 @@ public class TokenManager extends AppCompatActivity {
         mobileOtpLayout=findViewById(R.id.mobileOtpLayout);
         userDescriptionDetails=findViewById(R.id.userDescriptionDetails);
 
-        Toast.makeText(this, ""+userid, Toast.LENGTH_SHORT).show();
         description=
                 " Dear: " +firstNameEdts+" "+lastNameEdts+"\n"+
                 " You Choose: " +hotelNames+"\n"+
@@ -149,24 +152,34 @@ public class TokenManager extends AppCompatActivity {
         "\n"+
         "Thank You For Choosing Bdtour";
         userDescriptionDetails.setText(description);
-
+        mobileNumber ="+88"+mobilePhoneEdts;
         //Phone Verifications
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
-                .setPhoneNumber("+88"+mobilePhoneEdts)
+                .setPhoneNumber(mobileNumber)
                 .setTimeout(60L, TimeUnit.SECONDS)
                 .setActivity(TokenManager.this)                 // Activity (for callback binding)
                 .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                 .build();
                 PhoneAuthProvider.verifyPhoneNumber(options);
 
-        Toast.makeText(this, ""+phontST, Toast.LENGTH_SHORT).show();
         submitTOkensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                otpVerify = mobileTokenEditText.getText().toString();
+                if (mobileTokenEditText.getText().toString().length()!=6 && mobileTokenEditText.getText().toString().isEmpty()){
+                    mobileTokenEditText.setError("Please Type Valid Otp");
+                }
+                else {
+                    otpVerify = mobileTokenEditText.getText().toString();
 
-                verifyVerificationCode(otpVerify);
+                    verifyVerificationCode(otpVerify);
+                }
 
+            }
+        });
+        resendCodes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resendCode(mobileNumber,resendToken);
             }
         });
 
@@ -184,11 +197,26 @@ public class TokenManager extends AppCompatActivity {
         airdetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(TokenManager.this,AirDetailsActivity.class);
-                intent1.putExtra("dest",destinationSTr);
-                startActivity(intent1);
+                Intent intent2 = new Intent(TokenManager.this,AirDetailsActivity.class);
+                intent2.putExtra("dest",destinationSTr);
+                startActivity(intent2);
             }
         });
+
+    }
+
+
+    public void resendCode(String mobileNumber,
+                           PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(mobileNumber)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)// Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .setForceResendingToken(token)     // ForceResendingToken from callbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
 
     }
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -198,7 +226,6 @@ public class TokenManager extends AppCompatActivity {
             Toast.makeText(TokenManager.this, "Updated", Toast.LENGTH_SHORT).show();
             //Getting the code sent by SMS
             String code = phoneAuthCredential.getSmsCode();
-
             //sometime the code is not detected automatically
             //in this case the code will be null
             //so user has to manually enter the code
@@ -206,6 +233,8 @@ public class TokenManager extends AppCompatActivity {
                 mobileTokenEditText.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);
+            }else{
+                Toast.makeText(TokenManager.this, "Faild", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -220,6 +249,7 @@ public class TokenManager extends AppCompatActivity {
 
             //storing the verification id that is sent to the user
             mVerificationId = s;
+            resendToken = forceResendingToken;
         }
     };
     private void verifyVerificationCode(String code) {
@@ -277,6 +307,9 @@ public class TokenManager extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            constraintLayout=findViewById(R.id.constraiTlayout);
+                            constraintLayout.setVisibility(View.GONE);
                             //verification successful we will start the profile activity
                             mobileOtpLayout.setVisibility(View.GONE);
                             userDescriptionDetails.setVisibility(View.VISIBLE);
@@ -286,20 +319,8 @@ public class TokenManager extends AppCompatActivity {
                             //sendBookedHotelData();
                         } else {
                             //verification unsuccessful.. display an error message
-                            String message = "Somthing is wrong, we will fix it soon...";
+                            Toast.makeText(TokenManager.this, "Faild Verify Your PHone", Toast.LENGTH_SHORT).show();
 
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                message = "Invalid code entered...";
-                            }
-
-                            Snackbar snackbar = Snackbar.make(findViewById(R.id.parent), message, Snackbar.LENGTH_LONG);
-                            snackbar.setAction("Dismiss", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            });
-                            snackbar.show();
                         }
                     }
                 });

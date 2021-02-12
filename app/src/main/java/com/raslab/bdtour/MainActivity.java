@@ -28,6 +28,8 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+
+
 MaterialButton showDatePicker,adultIcreaseButton, adultDecreasingButton,childIcreaseButton, childDecreasingButton , searhHotelBTn;
 MaterialTextView textView,adultCountTV,childCountTV;
 AutoCompleteTextView autoCompleteTextView;
@@ -59,11 +61,14 @@ TextInputLayout dsInputLayout;
         adultCountTV= findViewById(R.id.adultCount);
         childCountTV=findViewById(R.id.childCount);
         adultCountTV.setText(String.valueOf(adultCount));
+
         childDecreasingButton.setEnabled(false);
         adultDecreasingButton.setEnabled(false);
 
+        //Location
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, LOCATIONS);
+
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         autoCompleteTextView.setAdapter(adapter);
 
@@ -76,8 +81,6 @@ TextInputLayout dsInputLayout;
 
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder();
         builder.setCalendarConstraints(constraintsBuilder.build());
-
-
 
         final MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
 
@@ -124,7 +127,6 @@ TextInputLayout dsInputLayout;
                editor.putString("adultCount",adultCountS);
                editor.commit();
                if (adultCount>1){
-
                    adultDecreasingButton.setEnabled(true);
                }
            }
@@ -190,28 +192,27 @@ adultDecreasingButton.setOnClickListener(new View.OnClickListener() {
       searhHotelBTn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-if (autoCompleteTextView.getText().toString().isEmpty()){
-    dsInputLayout.setError("Enter Destination");
-} else{
-    String destInattion = autoCompleteTextView.getText().toString();
-    editor.putString("destt",destInattion);
-    editor.commit();
-    Intent intent = new Intent(MainActivity.this,HotelListActivity.class);
-    intent.putExtra("destinationLOC",autoCompleteTextView.getText().toString());
-    startActivity(intent);
+        if (autoCompleteTextView.getText().toString().isEmpty()){
+            dsInputLayout.setError("Enter Destination");
+        } else{
+            String destInattion = autoCompleteTextView.getText().toString();
+            editor.putString("destt",destInattion);
+            editor.commit();
+            Intent intent = new Intent(MainActivity.this,HotelListActivity.class);
+            intent.putExtra("destinationLOC",autoCompleteTextView.getText().toString());
+            startActivity(intent);
 }
-
             }
         });
     }
 
 
     private static final String[] LOCATIONS = new String[] {
-            "Barguna",  "Barisal",        "Bhola",    "Jhalokati",  "Patuakhali", "Pirojpur","Bandarban","Brahmanbaria",   "Chandpur", "Chittagong", "Comilla",
-            "Cox's Bazar","Feni",     "Khagrachhari","Lakshmipur", "Noakhali", "Rangamati","Gazipur",  "Gopalganj",  "Kishoreganj","Madaripur",  "Manikganj","Munshiganj",
-            "Narayanganj","Narsingdi","Rajbari","Shariatpur","Tangail", "Jessore",  "Jhenaidah",  "Khulna",     "Kushtia",    "Magura",   "Meherpur",    "Narail",
-            "Satkhira","Netrakona","Sherpur","Bogra",    "Chapainawabganj","Joypurhat","Naogaon",    "Natore",     "Pabna",      "Rajshahi", "Sirajganj",
-            "Dinajpur", "Gaibandha",      "Kurigram", "Lalmonirhat","Nilphamari", "Panchagarh", "Rangpur",  "Thakurgaon",
-            "Habiganj", "Moulvibazar",    "Sunamganj","Sylhet", "Dhaka"
+            "Barguna","Barisal","Bhola","Jhalokati","Patuakhali","Pirojpur","Bandarban","Brahmanbaria","Chandpur","Chittagong","Comilla",
+            "Cox's Bazar","Feni","Khagrachhari","Lakshmipur","Noakhali","Rangamati","Gazipur","Gopalganj","Kishoreganj","Madaripur",  "Manikganj","Munshiganj",
+            "Narayanganj","Narsingdi","Rajbari","Shariatpur","Tangail","Jessore","Jhenaidah","Khulna","Kushtia", "Magura","Meherpur",    "Narail",
+            "Satkhira","Netrakona","Sherpur","Bogra","Chapainawabganj","Joypurhat","Naogaon","Natore","Pabna","Rajshahi","Sirajganj",
+            "Dinajpur", "Gaibandha","Kurigram", "Lalmonirhat","Nilphamari", "Panchagarh", "Rangpur","Thakurgaon",
+            "Habiganj", "Moulvibazar","Sunamganj","Sylhet", "Dhaka"
     };
 }
